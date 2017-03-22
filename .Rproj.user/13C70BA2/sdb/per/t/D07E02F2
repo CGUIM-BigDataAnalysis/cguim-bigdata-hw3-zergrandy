@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"長庚大學 大數據分析方法 作業三\"\noutput: github_document\n---\n\n\n```{r}\n\n\nlibrary(rvest) \n\nallframe = data.frame(Title=character(),\n                 Author=character(), \n                 PushNum=character()) \n\nfor(i in 2550:2581)\n{\n    PPTURL = paste0(\"https://www.ptt.cc/bbs/Tech_Job/index\",i,\".html\")\n    PPTContent = read_html(PPTURL)\n    author = html_text(html_nodes(PPTContent,\".author\"))\n    title = html_text(html_nodes(PPTContent,\".title\"))\n    title = gsub(\"\\n\",replacement=\"\",title) \n    title = gsub(\"\\t\",replacement=\"\",title) \n    nrec = html_text(html_nodes(PPTContent,\".nrec\"))\n    PPTframe = data.frame(Title = title\n          ,Author = author\n          ,PushNum = nrec)\n    allframe = rbind(allframe,PPTframe)\n}\n\n\n\n\n\n```\n\n## 爬蟲結果呈現\n```{r}\n\nknitr::kable(\n    allframe[c(\"Title\",\"Author\",\"PushNum\")])\n```\n\n## 解釋爬蟲結果 \n```{r}\n#三個欄位分別是主題，作者，推文數\nstr(allframe)\n#總共抓了636個主題\n```\n\n解釋解釋解釋解釋\n\n```{r}\n#這是R Code Chunk\nsort(table(allframe$Author),decreasing=TRUE)[1:10]\n#發最多文的作者:由大到小排列發現匿名人士最多，wer11次之......\n#有趣現象:暱稱W開頭的貌似都很愛發文\n```\n\n解釋解釋解釋解釋\n\n人工結論與解釋解釋解釋解釋解釋解釋解釋\n",
+    "created" : 1490200567872.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "114014403",
+    "id" : "D07E02F2",
+    "lastKnownWriteTime" : 1490222256,
+    "last_content_update" : -2147483648,
+    "path" : "~/GitHub/cguim-bigdata-hw3-zergrandy/README.Rmd",
+    "project_path" : "README.Rmd",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
